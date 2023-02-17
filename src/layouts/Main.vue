@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <ul>
+      <p>master1.0版本</p>
       <li>
         <v-link href="/">Home</v-link>
         <v-link href="/about">About</v-link>
