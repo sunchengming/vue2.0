@@ -1,0 +1,177 @@
+Vue的核心理念是数据驱动的理念，所谓的数据驱动的理念：当数据发生变化的时候，用户界面也会发生相应的变化，开发者并不需要手动
+的去修改dom
+Vue的响应式原理
+当创建 Vue 实例时,vue 会遍历 data 选项的属性,利用Object.defineProperty为属性添加 getter和setter 对数据的读取进行劫持（getter
+用来依赖收集,setter 用来派发更新）,并且在内部追踪依赖,在属性被访问和修改时通知变化
+
+
+前端页面优化
+html:在线网站进行压缩 html-minifier工具
+css 　css语义合并;  在线网站进行压缩 html-minifier对html中的css进行压缩
+js html-minifier工具  在线网站进行压缩 代码语义的缩减和优化 剔除注释; 　无效字符的删除(空格，回车等);
+img Base64->转换 雪碧图
+
+前端项目打包优化
+nodejs提供的html-minifier工具压缩
+代码压缩：vue中configs中引入echarts
+cdn引入：哪个页面需要用到，就按照上面的引入就行，也可以在main.js全局引入，这样就可以直接使用echarts.init()等方法了
+按需引入：
+懒加载：
+压缩文件：compression-webpack-plugin
+
+前端浏览器缓存机制：
+浏览器缓存处于服务器和客户端之间
+浏览器缓存有哪些优势
+1、把文件保存在了客户端，减少重复请求浪费网络带宽；
+（ps:带宽就是在一段时间内可通过互联网提供商传输的最大数据量。）
+2、有效的缓解了服务器的压力，不用重复请求数据；
+3、提高了访问速度，用户体验感更佳；
+
+浏览器缓存过程：浏览器先获取该资源缓存的header信息，根据其中的expires和cahe-control判断是否命中强缓存
+
+防抖：连续多次触发事件只执行一个函数，用到setTimeout 和clearTimeout
+节流：指连续触发事件但是在 n 秒中只执行一次函数。 let timer = null   timer = null; //开
+
+基本数据类型：
+number string boolean undefiend null
+引用类型：
+Object：array，function
+Symbol类型作为对象的私有属性，通过for/in、for/of无法遍历
+const TYPE_AUDIO = Symbol()
+
+
+变量作用域 var let const
+1.使用var声明的变量，其作用域为该语句所在的函数内，且存在变量提升现象。
+2.使用let声明的变量，其作用域为该语句所在的代码块内，不存在变量提升。
+3.使用const声明的是常量，在后面出现的代码中不能再修改该常量的值,常用来声明函数等。
+
+代码空间是存储执行代码的，栈空间是存储执行上下文的，堆空间存储对象的。
+堆(heap):由操作系统动态分配的内存，大小不定也不会自动释放，一般由程序员分配释放，也可由垃圾回收机制回收（程序结束时由浏览器回收）。
+栈(stack):由操作系统自动分配内存空间，自动释放，存储的是基础变量以及一些对象的引用变量，占据固定大小的空间
+栈空间的内存比较小，但是运行和存储快，内存值是固定的。 栈是一种运算受限的线性表，其限制是指只仅允许在表的一端进行插入和删除操作
+堆空间呢内存是根据存储内容自适配的，运行读取比较慢。
+垃圾回收机制：
+如果栈中不存在对堆中某个对象的引用，那么就认为该对象已经不再需要，在垃圾回收时就会清除该对象占用的内存空间
+
+js的执行机制
+JavaScript是一门单线程语言，js需要异步任务
+js事件循环是怎样运作的：
+macro-task(宏任务)：包括整体代码script，setTimeout，setInterval
+micro-task(微任务)：Promise，process.nextTick
+
+什么是闭包
+闭包就是能够读取其他函数内部变量的函数
+function a() {
+    let x = 2;
+    return function() {
+        console.log(x);
+    }
+}
+let func = a();
+func()
+
+vue中：
+组件 (Component) 是用来构成你的 App 的业务模块，它的目标是 App.vue。
+插件 (Plugin) 是用来增强你的技术栈的功能模块，它的目标是 Vue 本身。
+vue.component("component",{
+    props:[],
+    data:{},
+    template:""
+})
+import 'my-component' from 'xxx/xxx/xxx'
+export default {
+components:{ myCom }
+}
+
+var VueRouter = require('vue-router')
+Vue.use('VueRouter')
+
+
+构造选项options
+⑴什么是构造选项options
+当我们调用一个Vue实例时，返回的并不是对象本身而是一个可以操作这个元素的方法和属性的API对象。其中options代表的就是。
+const vm = new Vue(options);  /这就是一个Vue实例 前面变量声明可以不写 参数options就是构造选项
+其中vm就是Vue实例的别称，这个是Vue作者推荐的，我觉得可以参考 MVVM模型1中的VM。
+
+
+⑵五类最常见的options
+①数据：data、props、propsData、computed、methods、watch。
+②DOM：el、template、render、renderError。
+③生命周期钩子(函数): beforeCreate、created、beforeMount、mounted、beforeUpdate、updated、activated、deactivated、beforeDestroy、destroyed，errorCaptured。
+④资源：directives、filters、components。
+⑤组合：parent、mixins、extends、provide、inject。
+
+Vue2.0数据绑定:Vue2.0使用Object.defineProperty
+Vue3.0数据绑定:通过ES6的新特性proxy来劫持数据，当数据改变时发出通知
+使用proxy不污染源对象，会返回一个新对象，defineProperty是注入型的，会破坏源对象。
+使用proxy只需要监听整个源对象的属性，不需要循环使用Object.definedProperty监听对象的属性。
+使用proxy可以获取到对象属性的更多参数，使用definedProperty只能获取到监听属性的新值newValue。
+
+npm uninstall -g vue-cli  //2.0
+npm install -g @vue/cli  //3.0
+
+vue init webpack cli2-test
+vue create vue3.0
+
+2.0与3.0生命周期函数比较：
+2.0 周期名称 3.0 周期名称
+说明:
+beforeCreate setup 组件创建之前
+created setup 组件创建完成
+beforeMount onBeforeMount 组件挂载之前
+mounted onMounted 组件挂载完成
+beforeUpdate onBeforeUpdate 数据更新，虚拟 DOM 打补丁之前
+updated  onUpdated 数据更新，虚拟 DOM 渲染完成
+beforeDestroy onBeforeUnmount 组件销毁之前
+destroyed onUnmounted 组件销毁后
+
+import { value, computed, watch, onMounted, ref } from 'vue'
+export default {
+  setup() {
+    // ref state
+    const count = ref(0)
+    // computed state
+    const plusOne = computed(() => count.value + 1)
+    // method
+    const increment = () => { count.value++ }
+    // watch
+    watch(() => count.value * 2, val => {
+      console.log(`count * 2 is ${val}`)
+    })
+    // lifecycle
+    onMounted(() => {
+      console.log(`mounted`)
+    })
+    // expose bindings on render context
+    return {
+      count,
+      plusOne,
+      increment
+    }
+  }
+}
+
+
+语法方面：
+v-model语法糖废弃，改用modelValue
+弃用全局APInew Vue,使用createApp const app =?Vue.createApp({})
+const app = Vue.createApp({})
+app.config.globalProperties.$http = () => {}
+需要手动挂载根节点：
+import { createApp } from 'vue'
+import App from './App.vue'
+createApp(App).mount('#app')
+不能再使用Vue.nextTick/this.$nextTick，Vue3中你可以用：
+import { nextTick } from 'vue'
+nextTick(() => {
+  // something
+})
+
+
+webpack的主要功能是？
+提供友好的前端模块化开发，以及代码压缩混淆、处理浏览器端javaScript的兼容性、性能优化等强大功能
+好处：把工作的重心集中到具体功能实现上，提高前端开发效率以及项目的可维护性。
+
+
+
+

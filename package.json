@@ -1,5 +1,5 @@
 {
-  "name": "vue-2.0-simple-routing-example",
+  "name": "v2.0",
   "description": "A Vue.js project",
   "author": "Chris Fritz <chrisvfritz@gmail.com>",
   "private": true,
@@ -24,5 +24,16 @@
     "vue-template-compiler": "^2.3.3",
     "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5"
-  }
+  },
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sunchengming/vue-table-with-tree-grid.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sunchengming/vue-table-with-tree-grid/issues"
+  },
+  "homepage": "https://github.com/sunchengming/vue-table-with-tree-grid#readme"
 }

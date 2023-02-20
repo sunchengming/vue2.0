@@ -12,12 +12,7 @@
   import routes from '../routes'
 
   export default {
-    props: {
-      href: {
-        type:String,
-        required: true 
-      }
-    },
+    props: ["href"],
     computed: {
       isActive () {
         return this.href === this.$root.currentRoute
