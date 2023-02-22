@@ -15,6 +15,8 @@ img Base64->转换 雪碧图
 nodejs提供的html-minifier工具压缩
 代码压缩：vue中configs中引入echarts
 cdn引入：哪个页面需要用到，就按照上面的引入就行，也可以在main.js全局引入，这样就可以直接使用echarts.init()等方法了
+CDN全称Content Delivery Network（内容分发网络）
+把一些静态资源：css， .js，图片，视频放在第三方的CDN服务器上，可以加速访问速度
 按需引入：
 懒加载：
 压缩文件：compression-webpack-plugin
@@ -171,6 +173,87 @@ nextTick(() => {
 webpack的主要功能是？
 提供友好的前端模块化开发，以及代码压缩混淆、处理浏览器端javaScript的兼容性、性能优化等强大功能
 好处：把工作的重心集中到具体功能实现上，提高前端开发效率以及项目的可维护性。
+
+
+webpack.config.js是webpack的配置文件，基于node.js开发出来的打包工具，在打包之前会先读取这个配置文件，基于配置进行打包
+
+最常见的webpack插件如下：webpack-dev-server 每当修改源代码、webpack会监听项目源代码的变化，从而自动进行打包和构建
+
+页面缓存的坑。有个填写信息的页面，需要填写一部分信息，进入查新协议页面，返回的时候，页面上填写的信息还需要留存。  解决
+办法：使用vue提供的keep-alive，来完成页面的缓存的
+
+axios请求中post请求的坑
+设置请求头里的'Content-Type'为'application/x-www-form-urlencoded'
+
+vue组件中如何获取dom元素？
+使用ref属性获取，在组件模板元素中添加ref属性，在js中使用this.$ref获取
+
+vue循环中为什么要是用key
+每次循环中要是用key给每个节点做唯一标识，保证一个循环中key的值各不相同
+
+vue组件配置对象中都偶有那些常用字段？分别是什么作用？
+data 组建中的数据
+props 组件的属性数据，接受父组件的传值
+computed 计算属性
+components 定义或引用子组件
+methods 自定义函数
+watch 属性监听
+filters 数据过滤器
+mounted 生命周期函数
+
+
+vue路由的钩子函数有哪些？
+全聚德路由钩子函数：beforeEach ,afterEach
+单个的路由狗子函数：beforeEnter
+组件内的路由钩子函数：beforeRouteEnter ，beforeRouteleave ，beforeRouteUpdate
+
+elementUI相对vant而言少了一些东西，例如：
+
+elementUI的默认单位也是px，但它没有提供相应的方法将px转化成rem进行适配。
+elementUI没有底部安全区适配等解决方式。
+相对vant而言，elementUI少了许多组件，例如：骨架屏、数字键盘、遮罩层、倒计时、滑动单元格等等。
+vuex是一个转为vue.js应用程序开发状态管理模式
+5个核心属性：
+state：数据存放
+getters:相当于计算属性
+mutation：同步操作，修改数据
+action:异步操作
+modules；模块化
+
+vue-router原理
+vue-router通过hash和history两种方式实现前端路由更新视图但不重新请求页面是前段路由原理的核心之一
+
+路由跳转传参：
+params和query：this.$route.query.name和this.$route.params.name
+
+Data为什么是一个函数
+是为了在重复创建实例的时候避免共享同一数据，造成数据污染
+
+
+vue常用的修饰符
+trim 输入框过滤收尾空格
+number 先输入数字就会限制只能输入数字
+lazy 输入框改变数据就改变 lazy在逛遍离开input才更新数据
+事件修饰符：
+stop阻止点击事件冒泡，相当于原生js中的event，stopPropagation（）
+.prevent防止执行预设的行为 ，相当于原生js中event.preventDefault() 
+.capture添加事件侦听器时使用事件捕获模式，就是谁有该事件修饰符，就先触发睡谁。
+.self只会触法自己范围内的事件，不包括子元素
+.once只执行一次
+
+
+vue的跨域解决方式
+1.更改后台的header
+2.使用jq提供jsonp
+3.用http-proxy-middleware（配置代理服务器）
+
+如何利用es6快速的去重？
+let arr = [23, 12, 13, 33, 22, 12, 21]
+let item = [...new Set(arr)]
+
+vue中的data为什么是一个函数
+简单来说，就是为了保证组件的独立性和可复用性，如果 data 是个函数的话，
+每复用一次组件就会返回新的 data，类似于给每个组件实例创建一个私有的数据空间，保护各自的数据互不影响
 
 
 
